@@ -1,4 +1,7 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import Header from "~/components/header";
+import SidebarPlaylists from "~/components/sidebar-playlists";
+import { SidebarProvider } from "~/components/ui/sidebar";
 
 export const Route = createFileRoute("/_protected")({
   beforeLoad: ({ context }) => {
@@ -11,8 +14,12 @@ export const Route = createFileRoute("/_protected")({
 
 function RouteComponent() {
   return (
-    <>
-      <Outlet />
-    </>
+    <SidebarProvider>
+      <SidebarPlaylists />
+      <main className="w-full px-4 py-2 flex flex-col items-stretch space-y-8">
+        <Header />
+        <Outlet />
+      </main>
+    </SidebarProvider>
   );
 }

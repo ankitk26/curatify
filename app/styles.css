@@ -120,5 +120,11 @@
 }
 
 * {
-  font-family: "Roboto Mono", sans-serif;
+  font-family: "Geist", sans-serif;
+}
+
+pre,
+code,
+.font-mono {
+  font-family: "Geist Mono", monospace;
 }
