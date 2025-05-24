@@ -1,14 +1,23 @@
-// app/routes/__root.tsx
-import type { ReactNode } from "react";
+import type { QueryClient } from "@tanstack/react-query";
 import {
-  Outlet,
-  createRootRoute,
   HeadContent,
+  Outlet,
   Scripts,
+  createRootRouteWithContext,
 } from "@tanstack/react-router";
+import type { ReactNode } from "react";
+import { getAuthUser } from "~/lib/get-auth-user";
 import appCss from "~/styles.css?url";
 
-export const Route = createRootRoute({
+type RouterContext = {
+  queryClient: QueryClient;
+};
+
+export const Route = createRootRouteWithContext<RouterContext>()({
+  beforeLoad: async ({ context }) => {
+    const session = await getAuthUser();
+    return { session, queryClient: context.queryClient };
+  },
   head: () => ({
     meta: [
       {
