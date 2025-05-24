@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as LoginImport } from './routes/login'
 import { Route as ProtectedImport } from './routes/_protected'
 import { Route as ProtectedIndexImport } from './routes/_protected.index'
+import { Route as ProtectedPlaylistsPlaylistIdImport } from './routes/_protected.playlists.$playlistId'
 
 // Create/Update Routes
 
@@ -33,6 +34,13 @@ const ProtectedIndexRoute = ProtectedIndexImport.update({
   path: '/',
   getParentRoute: () => ProtectedRoute,
 } as any)
+
+const ProtectedPlaylistsPlaylistIdRoute =
+  ProtectedPlaylistsPlaylistIdImport.update({
+    id: '/playlists/$playlistId',
+    path: '/playlists/$playlistId',
+    getParentRoute: () => ProtectedRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -59,6 +67,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedIndexImport
       parentRoute: typeof ProtectedImport
     }
+    '/_protected/playlists/$playlistId': {
+      id: '/_protected/playlists/$playlistId'
+      path: '/playlists/$playlistId'
+      fullPath: '/playlists/$playlistId'
+      preLoaderRoute: typeof ProtectedPlaylistsPlaylistIdImport
+      parentRoute: typeof ProtectedImport
+    }
   }
 }
 
@@ -66,10 +81,12 @@ declare module '@tanstack/react-router' {
 
 interface ProtectedRouteChildren {
   ProtectedIndexRoute: typeof ProtectedIndexRoute
+  ProtectedPlaylistsPlaylistIdRoute: typeof ProtectedPlaylistsPlaylistIdRoute
 }
 
 const ProtectedRouteChildren: ProtectedRouteChildren = {
   ProtectedIndexRoute: ProtectedIndexRoute,
+  ProtectedPlaylistsPlaylistIdRoute: ProtectedPlaylistsPlaylistIdRoute,
 }
 
 const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
@@ -80,11 +97,13 @@ export interface FileRoutesByFullPath {
   '': typeof ProtectedRouteWithChildren
   '/login': typeof LoginRoute
   '/': typeof ProtectedIndexRoute
+  '/playlists/$playlistId': typeof ProtectedPlaylistsPlaylistIdRoute
 }
 
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/': typeof ProtectedIndexRoute
+  '/playlists/$playlistId': typeof ProtectedPlaylistsPlaylistIdRoute
 }
 
 export interface FileRoutesById {
@@ -92,14 +111,20 @@ export interface FileRoutesById {
   '/_protected': typeof ProtectedRouteWithChildren
   '/login': typeof LoginRoute
   '/_protected/': typeof ProtectedIndexRoute
+  '/_protected/playlists/$playlistId': typeof ProtectedPlaylistsPlaylistIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/login' | '/'
+  fullPaths: '' | '/login' | '/' | '/playlists/$playlistId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/'
-  id: '__root__' | '/_protected' | '/login' | '/_protected/'
+  to: '/login' | '/' | '/playlists/$playlistId'
+  id:
+    | '__root__'
+    | '/_protected'
+    | '/login'
+    | '/_protected/'
+    | '/_protected/playlists/$playlistId'
   fileRoutesById: FileRoutesById
 }
 
@@ -130,7 +155,8 @@ export const routeTree = rootRoute
     "/_protected": {
       "filePath": "_protected.tsx",
       "children": [
-        "/_protected/"
+        "/_protected/",
+        "/_protected/playlists/$playlistId"
       ]
     },
     "/login": {
@@ -138,6 +164,10 @@ export const routeTree = rootRoute
     },
     "/_protected/": {
       "filePath": "_protected.index.tsx",
+      "parent": "/_protected"
+    },
+    "/_protected/playlists/$playlistId": {
+      "filePath": "_protected.playlists.$playlistId.tsx",
       "parent": "/_protected"
     }
   }

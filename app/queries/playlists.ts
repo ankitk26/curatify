@@ -2,7 +2,7 @@ import { betterFetch } from "@better-fetch/fetch";
 import { queryOptions } from "@tanstack/react-query";
 import { spotifyApiBaseUrl } from "~/constants";
 import { getAuthUser } from "~/lib/get-auth-user";
-import { Playlist } from "~/types";
+import { Playlist, Track } from "~/types";
 
 export const playlistQueries = {
   all: queryOptions({
@@ -22,4 +22,59 @@ export const playlistQueries = {
       return res.data?.items;
     },
   }),
+
+  byId: (playlistId: string) =>
+    queryOptions({
+      queryKey: ["playlist", playlistId],
+      queryFn: async () => {
+        const auth = await getAuthUser();
+
+        const endpoint = `/playlists/${playlistId}`;
+
+        const res = await betterFetch<Playlist>(endpoint, {
+          baseURL: endpoint.startsWith("https") ? "" : spotifyApiBaseUrl,
+          headers: {
+            Authorization: `Bearer ${auth?.user.accessToken}`,
+          },
+        });
+
+        const resData = res.data;
+
+        if (!resData) {
+          return null;
+        }
+
+        const playlist = {
+          ...resData,
+          tracks: resData.tracks.items.map((item) => item.track),
+          count: resData.tracks.total,
+        };
+
+        let currUrl = resData.tracks.next;
+
+        while (currUrl !== null) {
+          const nextSetResponse = await betterFetch<{
+            items: { track: Track }[];
+            next?: string;
+          }>(currUrl!, {
+            baseURL: currUrl!.startsWith("https") ? "" : spotifyApiBaseUrl,
+            headers: {
+              Authorization: `Bearer ${auth?.user.accessToken}`,
+            },
+          });
+
+          const nextSetData = nextSetResponse.data;
+
+          if (nextSetData) {
+            playlist.tracks.push(
+              ...nextSetData.items.map((item) => item.track)
+            );
+          }
+
+          currUrl = nextSetData?.next;
+        }
+
+        return playlist;
+      },
+    }),
 };
