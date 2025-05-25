@@ -3,32 +3,10 @@ import { useParams } from "@tanstack/react-router";
 import { Music } from "lucide-react";
 import { query } from "~/queries";
 import { Badge } from "../ui/badge";
-import { Skeleton } from "../ui/skeleton";
 
 export default function ArtistHero() {
   const { artistId } = useParams({ from: "/_protected/artists/$artistId" });
-  const { data: artist, isPending } = useSuspenseQuery(
-    query.artists.byId(artistId).info
-  );
-
-  if (isPending) {
-    return (
-      <div>
-        <div className="flex items-end gap-4">
-          <Skeleton className="w-64 rounded-full aspect-square" />
-          <div className="flex-1 space-y-4">
-            <Skeleton className="h-6 w-3/4" />
-            <Skeleton className="h-6 w-32" />
-            <div className="flex items-center gap-4">
-              <Skeleton className="h-6 w-16" />
-              <Skeleton className="h-6 w-16" />
-              <Skeleton className="h-6 w-16" />
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const { data: artist } = useSuspenseQuery(query.artists.byId(artistId).info);
 
   return (
     <div className="flex items-end gap-6">
@@ -55,12 +33,6 @@ export default function ArtistHero() {
             <div className="flex items-center gap-5 text-sm">
               {artist?.genres?.map((genre: string) => (
                 <Badge key={genre}>{genre}</Badge>
-                // <span
-                //   key={genre}
-                //   className="px-4 py-1 text-xs capitalize rounded-full bg-neutral-800 hover:bg-neutral-950"
-                // >
-                //   {genre}
-                // </span>
               ))}
             </div>
           </div>

@@ -14,7 +14,9 @@ const paramsSchema = z.object({
 export const Route = createFileRoute("/_protected/")({
   validateSearch: zodValidator(paramsSchema),
   loader: async ({ context }) => {
-    await context.queryClient.prefetchQuery(query.playlists.all);
+    context.queryClient.prefetchQuery(query.playlists.all);
+    context.queryClient.prefetchQuery(query.albums.all);
+    context.queryClient.prefetchQuery(query.artists.all);
   },
   component: RouteComponent,
 });
