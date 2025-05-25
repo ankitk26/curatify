@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { MusicIcon } from "lucide-react";
 import { cn } from "~/lib/utils";
 import { Track } from "~/types";
@@ -51,14 +52,14 @@ export default function TracksTableTitleColumn({
               <span className="truncate">
                 {track.artists.map((artist, index) => (
                   <>
-                    <span
+                    <Link
                       key={artist.id + track.id}
-                      //   to="/artists/$artistId"
-                      //   params={{ artistId: artist.id }}
+                      to="/artists/$artistId"
+                      params={{ artistId: artist.id }}
                       className="hover:underline"
                     >
                       {artist.name}
-                    </span>
+                    </Link>
                     {index !== track.artists.length - 1 && ", "}
                   </>
                 ))}

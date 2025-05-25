@@ -24,7 +24,10 @@ function RouteComponent() {
     <div className="space-y-10">
       <h1 className="text-2xl font-semibold">Your Library</h1>
       <LibraryTabs />
-      <LibraryContent />
+
+      <div className="grid items-stretch gap-8 mt-4 grid-cols-5">
+        <LibraryContent />
+      </div>
     </div>
   );
 }

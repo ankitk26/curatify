@@ -1,6 +1,7 @@
 import { formatMs } from "~/lib/format-ms";
 import { Track } from "~/types";
 import TracksTableTitleColumn from "./tracks-table-title-column";
+import { Link } from "@tanstack/react-router";
 
 type Props = {
   index: number;
@@ -35,13 +36,13 @@ export default function TracksTableRow({
 
       {showAlbum && (
         <div className="flex items-center w-10/12 col-span-4 text-sm text-muted-foreground">
-          <span
-            // to="/albums/$albumId"
-            // params={{ albumId: track.album.id }}
+          <Link
+            to="/albums/$albumId"
+            params={{ albumId: track.album.id }}
             className="truncate hover:underline"
           >
             {track.album.name}
-          </span>
+          </Link>
         </div>
       )}
 
