@@ -18,9 +18,11 @@ function RouteComponent() {
   return (
     <SidebarProvider>
       <SidebarPlaylists />
-      <main className="w-full px-8 py-4 flex flex-col items-stretch space-y-8">
+      <main className="w-full px-8 py-4 flex flex-col items-stretch">
         <Header />
-        <Outlet />
+        <section className="my-8">
+          <Outlet />
+        </section>
       </main>
     </SidebarProvider>
   );

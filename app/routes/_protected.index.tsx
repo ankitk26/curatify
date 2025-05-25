@@ -1,8 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Button } from "~/components/ui/button";
+import { zodValidator } from "@tanstack/zod-adapter";
+import { z } from "zod";
+import LibraryContent from "~/components/library-content";
+import LibraryTabs from "~/components/library-tabs";
 import { query } from "~/queries";
 
+const paramsSchema = z.object({
+  library: z
+    .enum(["artists", "albums", "playlists", "tops"])
+    .default("playlists"),
+});
+
 export const Route = createFileRoute("/_protected/")({
+  validateSearch: zodValidator(paramsSchema),
   loader: async ({ context }) => {
     await context.queryClient.prefetchQuery(query.playlists.all);
   },
@@ -11,14 +21,10 @@ export const Route = createFileRoute("/_protected/")({
 
 function RouteComponent() {
   return (
-    <div className="space-y-4">
+    <div className="space-y-10">
       <h1 className="text-2xl font-semibold">Your Library</h1>
-      <div className="flex items-center gap-4">
-        <Button variant="secondary">Artists</Button>
-        <Button variant="secondary">Albums</Button>
-        <Button variant="secondary">Playlists</Button>
-        <Button variant="secondary">Your Tops</Button>
-      </div>
+      <LibraryTabs />
+      <LibraryContent />
     </div>
   );
 }

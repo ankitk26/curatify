@@ -50,6 +50,9 @@ importers:
       '@tanstack/start':
         specifier: ^1.120.5
         version: 1.120.5(@types/node@22.15.21)(db0@0.3.2(drizzle-orm@0.43.1(kysely@0.28.2)(pg@8.16.0)(postgres@3.4.7)))(drizzle-orm@0.43.1(kysely@0.28.2)(pg@8.16.0)(postgres@3.4.7))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.2)(tsx@4.19.4)(vite@6.3.5(@types/node@22.15.21)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.2)(tsx@4.19.4))
+      '@tanstack/zod-adapter':
+        specifier: ^1.120.10
+        version: 1.120.10(@tanstack/react-router@1.120.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(zod@3.25.28)
       better-auth:
         specifier: ^1.2.8
         version: 1.2.8
@@ -101,6 +104,9 @@ importers:
       vinxi:
         specifier: ^0.5.6
         version: 0.5.6(@types/node@22.15.21)(db0@0.3.2(drizzle-orm@0.43.1(kysely@0.28.2)(pg@8.16.0)(postgres@3.4.7)))(drizzle-orm@0.43.1(kysely@0.28.2)(pg@8.16.0)(postgres@3.4.7))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.2)(tsx@4.19.4)
+      zod:
+        specifier: ^3.25.28
+        version: 3.25.28
     devDependencies:
       '@types/node':
         specifier: ^22.15.21
@@ -1844,6 +1850,13 @@ packages:
   '@tanstack/virtual-file-routes@1.115.0':
     resolution: {integrity: sha512-XLUh1Py3AftcERrxkxC5Y5m5mfllRH3YR6YVlyjFgI2Tc2Ssy2NKmQFQIafoxfW459UJ8Dn81nWKETEIJifE4g==}
     engines: {node: '>=12'}
+
+  '@tanstack/zod-adapter@1.120.10':
+    resolution: {integrity: sha512-8d4UMmHE3gTEoNNz+KHOwOtbt6c8SEMXCzfPAuUVqKAg6gB2x0+FNirMXjsIH5ZVendjGesOyutvw2LLedP6jQ==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      '@tanstack/react-router': '>=1.43.2'
+      zod: ^3.23.8
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -4688,8 +4701,8 @@ packages:
     resolution: {integrity: sha512-zK7YHHz4ZXpW89AHXUPbQVGKI7uvkd3hzusTdotCg1UxyaVtg0zFJSTfW/Dq5f7OBBVnq6cZIaC8Ti4hb6dtCA==}
     engines: {node: '>= 14'}
 
-  zod@3.25.20:
-    resolution: {integrity: sha512-z03fqpTMDF1G02VLKUMt6vyACE7rNWkh3gpXVHgPTw28NPtDFRGvcpTtPwn2kMKtQ0idtYJUTxchytmnqYswcw==}
+  zod@3.25.28:
+    resolution: {integrity: sha512-/nt/67WYKnr5by3YS7LroZJbtcCBurDKKPBPWWzaxvVCGuG/NOsiKkrjoOhI8mJ+SQUXEbUzeB3S+6XDUEEj7Q==}
 
 snapshots:
 
@@ -5323,7 +5336,7 @@ snapshots:
       unixify: 1.0.0
       urlpattern-polyfill: 8.0.2
       yargs: 17.7.2
-      zod: 3.25.20
+      zod: 3.25.28
     transitivePeerDependencies:
       - encoding
       - rollup
@@ -6081,7 +6094,7 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       vinxi: 0.5.3(@types/node@22.15.21)(db0@0.3.2(drizzle-orm@0.43.1(kysely@0.28.2)(pg@8.16.0)(postgres@3.4.7)))(drizzle-orm@0.43.1(kysely@0.28.2)(pg@8.16.0)(postgres@3.4.7))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.2)(tsx@4.19.4)
       vite: 6.3.5(@types/node@22.15.21)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.2)(tsx@4.19.4)
-      zod: 3.25.20
+      zod: 3.25.28
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -6297,7 +6310,7 @@ snapshots:
       '@tanstack/virtual-file-routes': 1.115.0
       prettier: 3.5.3
       tsx: 4.19.4
-      zod: 3.25.20
+      zod: 3.25.28
     optionalDependencies:
       '@tanstack/react-router': 1.120.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
@@ -6319,7 +6332,7 @@ snapshots:
       babel-dead-code-elimination: 1.0.10
       chokidar: 3.6.0
       unplugin: 2.3.4
-      zod: 3.25.20
+      zod: 3.25.28
     optionalDependencies:
       '@tanstack/react-router': 1.120.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       vite: 6.3.5(@types/node@22.15.21)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.2)(tsx@4.19.4)
@@ -6431,7 +6444,7 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       vinxi: 0.5.3(@types/node@22.15.21)(db0@0.3.2(drizzle-orm@0.43.1(kysely@0.28.2)(pg@8.16.0)(postgres@3.4.7)))(drizzle-orm@0.43.1(kysely@0.28.2)(pg@8.16.0)(postgres@3.4.7))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.2)(tsx@4.19.4)
       vite: 6.3.5(@types/node@22.15.21)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.2)(tsx@4.19.4)
-      zod: 3.25.20
+      zod: 3.25.28
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -6624,6 +6637,11 @@ snapshots:
   '@tanstack/store@0.7.0': {}
 
   '@tanstack/virtual-file-routes@1.115.0': {}
+
+  '@tanstack/zod-adapter@1.120.10(@tanstack/react-router@1.120.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(zod@3.25.28)':
+    dependencies:
+      '@tanstack/react-router': 1.120.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      zod: 3.25.28
 
   '@types/babel__core@7.20.5':
     dependencies:
@@ -6953,7 +6971,7 @@ snapshots:
       jose: 5.10.0
       kysely: 0.28.2
       nanostores: 0.11.4
-      zod: 3.25.20
+      zod: 3.25.28
 
   better-call@1.0.9:
     dependencies:
@@ -9416,7 +9434,7 @@ snapshots:
       unenv: 1.10.0
       unstorage: 1.16.0(db0@0.3.2(drizzle-orm@0.43.1(kysely@0.28.2)(pg@8.16.0)(postgres@3.4.7)))(ioredis@5.6.1)
       vite: 6.3.5(@types/node@22.15.21)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.2)(tsx@4.19.4)
-      zod: 3.25.20
+      zod: 3.25.28
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -9494,7 +9512,7 @@ snapshots:
       unenv: 1.10.0
       unstorage: 1.16.0(db0@0.3.2(drizzle-orm@0.43.1(kysely@0.28.2)(pg@8.16.0)(postgres@3.4.7)))(ioredis@5.6.1)
       vite: 6.3.5(@types/node@22.15.21)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.2)(tsx@4.19.4)
-      zod: 3.25.20
+      zod: 3.25.28
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -9707,4 +9725,4 @@ snapshots:
       compress-commons: 6.0.2
       readable-stream: 4.7.0
 
-  zod@3.25.20: {}
+  zod@3.25.28: {}

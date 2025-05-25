@@ -15,6 +15,8 @@ import { Route as LoginImport } from './routes/login'
 import { Route as ProtectedImport } from './routes/_protected'
 import { Route as ProtectedIndexImport } from './routes/_protected.index'
 import { Route as ProtectedPlaylistsPlaylistIdImport } from './routes/_protected.playlists.$playlistId'
+import { Route as ProtectedArtistsArtistIdImport } from './routes/_protected.artists.$artistId'
+import { Route as ProtectedAlbumsAlbumIdImport } from './routes/_protected.albums.$albumId'
 
 // Create/Update Routes
 
@@ -42,6 +44,18 @@ const ProtectedPlaylistsPlaylistIdRoute =
     getParentRoute: () => ProtectedRoute,
   } as any)
 
+const ProtectedArtistsArtistIdRoute = ProtectedArtistsArtistIdImport.update({
+  id: '/artists/$artistId',
+  path: '/artists/$artistId',
+  getParentRoute: () => ProtectedRoute,
+} as any)
+
+const ProtectedAlbumsAlbumIdRoute = ProtectedAlbumsAlbumIdImport.update({
+  id: '/albums/$albumId',
+  path: '/albums/$albumId',
+  getParentRoute: () => ProtectedRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -67,6 +81,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedIndexImport
       parentRoute: typeof ProtectedImport
     }
+    '/_protected/albums/$albumId': {
+      id: '/_protected/albums/$albumId'
+      path: '/albums/$albumId'
+      fullPath: '/albums/$albumId'
+      preLoaderRoute: typeof ProtectedAlbumsAlbumIdImport
+      parentRoute: typeof ProtectedImport
+    }
+    '/_protected/artists/$artistId': {
+      id: '/_protected/artists/$artistId'
+      path: '/artists/$artistId'
+      fullPath: '/artists/$artistId'
+      preLoaderRoute: typeof ProtectedArtistsArtistIdImport
+      parentRoute: typeof ProtectedImport
+    }
     '/_protected/playlists/$playlistId': {
       id: '/_protected/playlists/$playlistId'
       path: '/playlists/$playlistId'
@@ -81,11 +109,15 @@ declare module '@tanstack/react-router' {
 
 interface ProtectedRouteChildren {
   ProtectedIndexRoute: typeof ProtectedIndexRoute
+  ProtectedAlbumsAlbumIdRoute: typeof ProtectedAlbumsAlbumIdRoute
+  ProtectedArtistsArtistIdRoute: typeof ProtectedArtistsArtistIdRoute
   ProtectedPlaylistsPlaylistIdRoute: typeof ProtectedPlaylistsPlaylistIdRoute
 }
 
 const ProtectedRouteChildren: ProtectedRouteChildren = {
   ProtectedIndexRoute: ProtectedIndexRoute,
+  ProtectedAlbumsAlbumIdRoute: ProtectedAlbumsAlbumIdRoute,
+  ProtectedArtistsArtistIdRoute: ProtectedArtistsArtistIdRoute,
   ProtectedPlaylistsPlaylistIdRoute: ProtectedPlaylistsPlaylistIdRoute,
 }
 
@@ -97,12 +129,16 @@ export interface FileRoutesByFullPath {
   '': typeof ProtectedRouteWithChildren
   '/login': typeof LoginRoute
   '/': typeof ProtectedIndexRoute
+  '/albums/$albumId': typeof ProtectedAlbumsAlbumIdRoute
+  '/artists/$artistId': typeof ProtectedArtistsArtistIdRoute
   '/playlists/$playlistId': typeof ProtectedPlaylistsPlaylistIdRoute
 }
 
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/': typeof ProtectedIndexRoute
+  '/albums/$albumId': typeof ProtectedAlbumsAlbumIdRoute
+  '/artists/$artistId': typeof ProtectedArtistsArtistIdRoute
   '/playlists/$playlistId': typeof ProtectedPlaylistsPlaylistIdRoute
 }
 
@@ -111,19 +147,34 @@ export interface FileRoutesById {
   '/_protected': typeof ProtectedRouteWithChildren
   '/login': typeof LoginRoute
   '/_protected/': typeof ProtectedIndexRoute
+  '/_protected/albums/$albumId': typeof ProtectedAlbumsAlbumIdRoute
+  '/_protected/artists/$artistId': typeof ProtectedArtistsArtistIdRoute
   '/_protected/playlists/$playlistId': typeof ProtectedPlaylistsPlaylistIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/login' | '/' | '/playlists/$playlistId'
+  fullPaths:
+    | ''
+    | '/login'
+    | '/'
+    | '/albums/$albumId'
+    | '/artists/$artistId'
+    | '/playlists/$playlistId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/' | '/playlists/$playlistId'
+  to:
+    | '/login'
+    | '/'
+    | '/albums/$albumId'
+    | '/artists/$artistId'
+    | '/playlists/$playlistId'
   id:
     | '__root__'
     | '/_protected'
     | '/login'
     | '/_protected/'
+    | '/_protected/albums/$albumId'
+    | '/_protected/artists/$artistId'
     | '/_protected/playlists/$playlistId'
   fileRoutesById: FileRoutesById
 }
@@ -156,6 +207,8 @@ export const routeTree = rootRoute
       "filePath": "_protected.tsx",
       "children": [
         "/_protected/",
+        "/_protected/albums/$albumId",
+        "/_protected/artists/$artistId",
         "/_protected/playlists/$playlistId"
       ]
     },
@@ -164,6 +217,14 @@ export const routeTree = rootRoute
     },
     "/_protected/": {
       "filePath": "_protected.index.tsx",
+      "parent": "/_protected"
+    },
+    "/_protected/albums/$albumId": {
+      "filePath": "_protected.albums.$albumId.tsx",
+      "parent": "/_protected"
+    },
+    "/_protected/artists/$artistId": {
+      "filePath": "_protected.artists.$artistId.tsx",
       "parent": "/_protected"
     },
     "/_protected/playlists/$playlistId": {
