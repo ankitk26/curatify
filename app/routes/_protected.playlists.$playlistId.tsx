@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { Dot, Music } from "lucide-react";
+import { DotIcon, MusicIcon } from "lucide-react";
 import { Suspense } from "react";
 import PlaylistDescription from "~/components/playlist-description";
 import TracksTable from "~/components/tracks-table";
@@ -53,7 +53,10 @@ function RouteComponent() {
               />
             ) : (
               <div className="w-full h-40">
-                <Music size={160} className="w-full h-full bg-neutral-800" />
+                <MusicIcon
+                  size={160}
+                  className="w-full h-full bg-neutral-800"
+                />
               </div>
             )}
 
@@ -69,7 +72,7 @@ function RouteComponent() {
                 <span>{playlist.owner?.display_name}</span>
                 {playlist.followers.total > 0 && (
                   <>
-                    <Dot />
+                    <DotIcon />
                     <span>
                       {playlist.followers.total.toLocaleString()}{" "}
                       {playlist.followers.total > 1 ? "likes" : "like"}
@@ -78,7 +81,7 @@ function RouteComponent() {
                 )}
                 {playlist.tracks.length > 0 && (
                   <>
-                    <Dot />
+                    <DotIcon />
                     <span>{playlist.tracks.length.toLocaleString()} songs</span>
                   </>
                 )}

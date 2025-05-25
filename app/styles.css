@@ -120,11 +120,5 @@
 }
 
 * {
-  font-family: "Geist", sans-serif;
-}
-
-pre,
-code,
-.font-mono {
-  font-family: "Geist Mono", monospace;
+  font-family: "Geist Mono", sans-serif;
 }

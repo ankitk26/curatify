@@ -15,7 +15,9 @@ export default function SidebarPlaylists() {
   return (
     <Sidebar>
       <SidebarHeader className="mt-2 px-6">
-        <h1 className="text-2xl font-semibold">curatify</h1>
+        <Link to="/" className="text-2xl font-semibold">
+          curatify
+        </Link>
       </SidebarHeader>
       <SidebarContent className="px-6 mt-8 flex-1 min-h-0">
         <ScrollArea className="h-full pr-2">

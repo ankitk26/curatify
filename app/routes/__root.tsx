@@ -14,10 +14,6 @@ type RouterContext = {
 };
 
 export const Route = createRootRouteWithContext<RouterContext>()({
-  beforeLoad: async ({ context }) => {
-    const session = await getAuthUser();
-    return { session, queryClient: context.queryClient };
-  },
   head: () => ({
     meta: [
       {

@@ -2,10 +2,12 @@ import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import Header from "~/components/header";
 import SidebarPlaylists from "~/components/sidebar-playlists";
 import { SidebarProvider } from "~/components/ui/sidebar";
+import { query } from "~/queries";
 
 export const Route = createFileRoute("/_protected")({
-  beforeLoad: ({ context }) => {
-    if (!context.session?.user) {
+  beforeLoad: async ({ context }) => {
+    const auth = await context.queryClient.fetchQuery(query.users.me);
+    if (!auth?.user) {
       throw redirect({ to: "/login" });
     }
   },
