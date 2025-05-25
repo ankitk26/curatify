@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Button } from "~/components/ui/button";
 import { query } from "~/queries";
 
 export const Route = createFileRoute("/_protected/")({
@@ -13,18 +14,10 @@ function RouteComponent() {
     <div className="space-y-4">
       <h1 className="text-2xl font-semibold">Your Library</h1>
       <div className="flex items-center gap-4">
-        <div className="bg-card text-card-foreground px-4 py-2 rounded-xl text-sm">
-          Artists
-        </div>
-        <div className="bg-card text-card-foreground px-4 py-2 rounded-xl text-sm">
-          Playlists
-        </div>
-        <div className="bg-card text-card-foreground px-4 py-2 rounded-xl text-sm">
-          Albums
-        </div>
-        <div className="bg-card text-card-foreground px-4 py-2 rounded-xl text-sm">
-          Your tops
-        </div>
+        <Button variant="secondary">Artists</Button>
+        <Button variant="secondary">Albums</Button>
+        <Button variant="secondary">Playlists</Button>
+        <Button variant="secondary">Your Tops</Button>
       </div>
     </div>
   );

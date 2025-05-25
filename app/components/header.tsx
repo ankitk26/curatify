@@ -1,13 +1,15 @@
-import { useNavigate, useRouteContext } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 import { LogOutIcon } from "lucide-react";
 import { authClient } from "~/lib/auth-client";
+import { query } from "~/queries";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
 export default function Header() {
-  const context = useRouteContext({ from: "/_protected" });
   const navigate = useNavigate();
+  const { data } = useSuspenseQuery(query.users.me);
 
   return (
     <header className="flex items-center justify-between gap-16">
@@ -18,10 +20,7 @@ export default function Header() {
 
       <div className="flex items-center gap-4">
         <Avatar>
-          <AvatarImage
-            src={context.session?.user.image ?? ""}
-            alt={context.session?.user.name}
-          />
+          <AvatarImage src={data?.user.image ?? ""} alt={data?.user.name} />
         </Avatar>
         <Button
           size="icon"
