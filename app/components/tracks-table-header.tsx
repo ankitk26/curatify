@@ -13,9 +13,7 @@ export default function TracksTableHeader({
 }: {
   showAlbum: boolean;
 }) {
-  const { playlistId } = useParams({
-    from: "/_protected/playlists/$playlistId",
-  });
+  const { albumId, playlistId } = useParams({ strict: false });
   const [isHovered, setIsHovered] = useState(false);
 
   const isStageEmpty = useTrackStore((store) => store.stagedTracks.size === 0);
@@ -37,10 +35,21 @@ export default function TracksTableHeader({
                 id={playlistId}
                 onCheckedChange={(checked) => {
                   if (checked) {
-                    const data = queryClient.getQueryData(
-                      query.playlists.byId(playlistId).queryKey
-                    );
-                    data?.tracks.map((track) => addTrackToStage(track.id));
+                    if (playlistId) {
+                      const data = queryClient.getQueryData(
+                        query.playlists.byId(playlistId).queryKey
+                      );
+                      data?.tracks.forEach((track) =>
+                        addTrackToStage(track.id)
+                      );
+                    } else {
+                      const data = queryClient.getQueryData(
+                        query.albums.byId(albumId ?? "").queryKey
+                      );
+                      data?.tracks.items.forEach((track) =>
+                        addTrackToStage(track.id)
+                      );
+                    }
                   } else {
                     clearStagedTracks();
                   }
