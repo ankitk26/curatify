@@ -24,8 +24,12 @@ export default function CardItemContent({ item }: Props) {
           }`}
         />
       ) : (
-        <div className="w-full h-40">
-          <MusicIcon className="w-full h-full rounded-md" />
+        <div
+          className={`w-full aspect-square flex items-center justify-center bg-input/30 ${
+            item.type === "artists" ? "rounded-full" : "rounded-md"
+          }`}
+        >
+          <MusicIcon className="w-24 h-24 text-muted-foreground" />
         </div>
       )}
       <h3 className="mt-5 font-bold truncate">{item.title}</h3>

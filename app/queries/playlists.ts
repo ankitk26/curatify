@@ -77,4 +77,51 @@ export const playlistQueries = {
         return playlist;
       },
     }),
+
+  add: async (params: {
+    name: string;
+    description: string;
+    isPublic: boolean;
+  }) => {
+    const auth = await getAuthUser();
+
+    const endpoint = `/users/${auth?.user.accountId}/playlists`;
+
+    const { error } = await betterFetch(endpoint, {
+      method: "POST",
+      body: {
+        name: params.name,
+        description: params.description,
+        public: params.isPublic,
+      },
+      baseURL: spotifyApiBaseUrl,
+      headers: {
+        Authorization: `Bearer ${auth?.user.accessToken}`,
+      },
+    });
+
+    if (error) {
+      console.log(error);
+      throw new Error(error.message);
+    }
+  },
+
+  delete: async (playlistId: string) => {
+    const auth = await getAuthUser();
+
+    const endpoint = `/playlists/${playlistId}/followers`;
+
+    const { error } = await betterFetch(endpoint, {
+      method: "DELETE",
+      baseURL: spotifyApiBaseUrl,
+      headers: {
+        Authorization: `Bearer ${auth?.user.accessToken}`,
+      },
+    });
+
+    if (error) {
+      console.log(error);
+      throw new Error(error.message);
+    }
+  },
 };

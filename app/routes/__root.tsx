@@ -6,7 +6,7 @@ import {
   createRootRouteWithContext,
 } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import { getAuthUser } from "~/lib/get-auth-user";
+import { Toaster } from "~/components/ui/sonner";
 import appCss from "~/styles.css?url";
 
 type RouterContext = {
@@ -57,6 +57,8 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       </head>
       <body className="dark">
         {children}
+        <Toaster />
+
         <Scripts />
       </body>
     </html>

@@ -14,7 +14,10 @@ export default function PlaylistsGrid() {
             key={"search_results_playlist_" + query}
             item={{
               id: playlist.id,
-              image: playlist.images[0].url ?? "",
+              image:
+                playlist.images && playlist.images.length > 0
+                  ? playlist.images[0].url
+                  : "",
               title: playlist.name,
               subtitle: playlist.description,
               type: "playlists",

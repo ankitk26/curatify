@@ -1,5 +1,6 @@
 import { useTrackStore } from "~/store/track-store";
 import { Button } from "../ui/button";
+import DeletePlaylistDialog from "./delete-playlist-dialog";
 
 export default function PlaylistActionButtons() {
   const isStageEmpty = useTrackStore((store) => store.stagedTracks.size === 0);
@@ -12,6 +13,7 @@ export default function PlaylistActionButtons() {
       <Button size="sm" variant="secondary" disabled={isStageEmpty}>
         Add to another playlist
       </Button>
+      <DeletePlaylistDialog />
     </div>
   );
 }

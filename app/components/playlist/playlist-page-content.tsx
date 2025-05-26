@@ -17,7 +17,7 @@ export default function PlaylistPageContent() {
       <div className="flex items-end gap-6">
         {playlist && (
           <>
-            {playlist.images.length > 0 ? (
+            {playlist.images && playlist.images.length > 0 ? (
               <img
                 src={playlist.images[0].url}
                 alt={playlist.name}
@@ -26,11 +26,8 @@ export default function PlaylistPageContent() {
                 className="object-contain rounded-sm w-60 h-60"
               />
             ) : (
-              <div className="w-full h-40">
-                <MusicIcon
-                  size={160}
-                  className="w-full h-full bg-neutral-800"
-                />
+              <div className="w-60 h-60 flex items-center justify-center rounded-sm bg-neutral-800">
+                <MusicIcon size={80} className="text-neutral-400" />
               </div>
             )}
 
