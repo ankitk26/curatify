@@ -138,13 +138,16 @@ export default function AddTracksDialog() {
               isTooManyApiCalls
             }
           >
-            {isTooManyApiCalls
-              ? "Too many requests. Reduce tracks or playlists"
-              : addTracksMutation.isPending
-              ? "Submitting..."
-              : "Submit"}
+            {addTracksMutation.isPending ? "Adding..." : "Add"}
           </Button>
         </DialogFooter>
+        {isTooManyApiCalls && (
+          <div className="flex items-center justify-end">
+            <small className="text-destructive">
+              Too many requests at once. Submit in parts
+            </small>
+          </div>
+        )}
       </DialogContent>
     </Dialog>
   );
