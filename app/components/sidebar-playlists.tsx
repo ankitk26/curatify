@@ -27,6 +27,7 @@ export default function SidebarPlaylists() {
           <div className="flex flex-col items-start space-y-6">
             {playlists?.map((playlist) => (
               <Link
+                key={"sidebar_playlist_" + playlist.id}
                 to="/playlists/$playlistId"
                 params={{ playlistId: playlist.id }}
                 className="flex items-center gap-4 w-full"

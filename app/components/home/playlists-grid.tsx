@@ -11,7 +11,7 @@ export default function PlaylistsGrid() {
         ?.filter((playlist) => playlist !== null)
         .map((playlist) => (
           <CardItem
-            key={"search_results_playlist_" + query}
+            key={playlist.id}
             item={{
               id: playlist.id,
               image:

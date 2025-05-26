@@ -9,7 +9,7 @@ export default function AlbumsGrid() {
     <>
       {albums?.map((album) => (
         <CardItem
-          key={"search_results_album_" + query}
+          key={album.id}
           item={{
             id: album.id,
             image:

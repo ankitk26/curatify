@@ -10,7 +10,7 @@ export default function ArtistsGrid() {
     <Suspense fallback={<p>Loading artists...</p>}>
       {artists?.map((artist) => (
         <CardItem
-          key={"search_results_artist_" + query + "_" + artist.id}
+          key={artist.id}
           item={{
             id: artist.id,
             image:

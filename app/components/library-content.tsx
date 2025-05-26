@@ -14,7 +14,7 @@ export default function LibraryContent() {
       <Suspense
         fallback={Array.from({ length: 5 }).map((_, index) => (
           <Skeleton
-            key={"recently_played_" + index}
+            key={"user_library_playlist_" + index}
             className="aspect-square col-span-1 w-full rounded-md"
           />
         ))}
@@ -28,7 +28,7 @@ export default function LibraryContent() {
       <Suspense
         fallback={Array.from({ length: 5 }).map((_, index) => (
           <Skeleton
-            key={"recently_played_" + index}
+            key={"user_library_album_" + index}
             className="aspect-square col-span-1 w-full rounded-md"
           />
         ))}
@@ -41,7 +41,7 @@ export default function LibraryContent() {
       <Suspense
         fallback={Array.from({ length: 5 }).map((_, index) => (
           <Skeleton
-            key={"recently_played_" + index}
+            key={"user_library_artist_" + index}
             className="aspect-square col-span-1 w-full rounded-md"
           />
         ))}
