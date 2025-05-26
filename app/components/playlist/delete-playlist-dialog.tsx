@@ -3,17 +3,18 @@ import { useNavigate, useParams } from "@tanstack/react-router";
 import { Trash2Icon } from "lucide-react";
 import { toast } from "sonner";
 import { query } from "~/queries";
-import { Button } from "../ui/button";
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
+import { Button } from "../ui/button";
 
 export default function DeletePlaylistDialog() {
   const { playlistId } = useParams({
@@ -37,38 +38,30 @@ export default function DeletePlaylistDialog() {
   });
 
   return (
-    <Dialog>
-      <DialogTrigger>
+    <AlertDialog>
+      <AlertDialogTrigger>
         <Button size="sm" variant="destructive">
           <Trash2Icon />
           Delete playlist
         </Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Confirm deletion</DialogTitle>
-          <DialogDescription>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Confirm deletion</AlertDialogTitle>
+          <AlertDialogDescription>
             Please confirm to delete the playlist
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <DialogClose>
-            <Button
-              variant="outline"
-              disabled={deletePlaylistMutation.isPending}
-            >
-              Close
-            </Button>
-          </DialogClose>
-          <Button
-            variant="destructive"
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Close</AlertDialogCancel>
+          <AlertDialogAction
             disabled={deletePlaylistMutation.isPending}
             onClick={() => deletePlaylistMutation.mutate()}
           >
             {deletePlaylistMutation.isPending ? "Deleting..." : "Delete"}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

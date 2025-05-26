@@ -16,21 +16,24 @@ export default function SidebarPlaylists() {
 
   return (
     <Sidebar>
-      <SidebarHeader className="mt-2 px-6 flex flex-row items-center justify-between">
+      <SidebarHeader className="mt-2 px-4 flex flex-row items-center justify-between">
         <Link to="/" className="text-2xl font-semibold">
           curatify
         </Link>
         <AddPlaylistDialog />
       </SidebarHeader>
-      <SidebarContent className="px-6 mt-8 flex-1 min-h-0">
+      <SidebarContent className="px-4 mt-8 flex-1 min-h-0">
         <ScrollArea className="h-full pr-2">
-          <div className="flex flex-col items-start space-y-6">
+          <div className="flex flex-col items-start space-y-3">
             {playlists?.map((playlist) => (
               <Link
                 key={"sidebar_playlist_" + playlist.id}
                 to="/playlists/$playlistId"
                 params={{ playlistId: playlist.id }}
-                className="flex items-center gap-4 w-full"
+                activeProps={{
+                  className: "bg-input/30",
+                }}
+                className="flex items-center gap-4 rounded-lg p-2 w-full"
               >
                 {playlist.images && playlist.images.length > 0 ? (
                   <img

@@ -26,7 +26,7 @@ export default function TracksTable({
           ?.filter((track) => track.name.trim().length > 0)
           .map((track, index) => (
             <TracksTableRow
-              key={track.id}
+              key={track.id + "__" + index}
               index={index}
               track={track}
               showAlbum={showAlbum}

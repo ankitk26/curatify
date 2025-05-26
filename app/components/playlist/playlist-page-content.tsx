@@ -73,7 +73,7 @@ export default function PlaylistPageContent() {
             stagedTracksCount > 0 ? "block" : "invisible"
           )}
         >
-          {stagedTracksCount} tracks selected
+          {stagedTracksCount} track{stagedTracksCount > 1 && "s"} selected
         </p>
       </div>
 

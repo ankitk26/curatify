@@ -1,5 +1,7 @@
+import { MinusIcon } from "lucide-react";
 import { useTrackStore } from "~/store/track-store";
 import { Button } from "../ui/button";
+import AddTracksToPlaylistDialog from "./add-tracks-to-playlist-dialog";
 import DeletePlaylistDialog from "./delete-playlist-dialog";
 
 export default function PlaylistActionButtons() {
@@ -8,11 +10,10 @@ export default function PlaylistActionButtons() {
   return (
     <div className="flex items-center gap-4">
       <Button size="sm" variant="secondary" disabled={isStageEmpty}>
+        <MinusIcon />
         Remove from playlist
       </Button>
-      <Button size="sm" variant="secondary" disabled={isStageEmpty}>
-        Add to another playlist
-      </Button>
+      <AddTracksToPlaylistDialog />
       <DeletePlaylistDialog />
     </div>
   );
