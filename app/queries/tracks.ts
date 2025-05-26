@@ -50,4 +50,44 @@ export const trackQueries = {
       })
     );
   },
+
+  removeFromPlaylist: async ({
+    trackIds,
+    playlistId,
+  }: {
+    trackIds: string[];
+    playlistId: string;
+  }) => {
+    const auth = await getAuthUser();
+    const accessToken = auth?.user.accessToken;
+    const trackChunks = chunkArray(trackIds, 100);
+
+    await Promise.all(
+      trackChunks.map(async (chunk) => {
+        const endpoint = `/playlists/${playlistId}/tracks`;
+        const tracksToRemove = chunk.map((id) => ({
+          uri: `spotify:track:${id}`,
+        }));
+
+        const { error } = await betterFetch(endpoint, {
+          method: "DELETE",
+          baseURL: spotifyApiBaseUrl,
+          body: {
+            tracks: tracksToRemove,
+          },
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+
+        if (error) {
+          console.error(
+            `Failed to remove chunk from playlist ${playlistId}`,
+            error
+          );
+          throw new Error(error.message);
+        }
+      })
+    );
+  },
 };

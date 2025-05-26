@@ -56,7 +56,10 @@ export default function DeletePlaylistDialog() {
           <AlertDialogCancel>Close</AlertDialogCancel>
           <AlertDialogAction
             disabled={deletePlaylistMutation.isPending}
-            onClick={() => deletePlaylistMutation.mutate()}
+            onClick={() => {
+              toast.info("Deleting playlist");
+              deletePlaylistMutation.mutate();
+            }}
           >
             {deletePlaylistMutation.isPending ? "Deleting..." : "Delete"}
           </AlertDialogAction>

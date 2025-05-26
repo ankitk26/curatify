@@ -56,7 +56,10 @@ export default function PlaylistPageContent() {
                 {playlist.tracks.length > 0 && (
                   <>
                     <DotIcon />
-                    <span>{playlist.tracks.length.toLocaleString()} songs</span>
+                    <span>
+                      {playlist.tracks.length.toLocaleString()} song
+                      {playlist.tracks.length > 1 && "s"}
+                    </span>
                   </>
                 )}
               </div>

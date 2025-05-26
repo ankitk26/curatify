@@ -17,7 +17,7 @@ import {
 } from "../ui/dialog";
 import { ScrollArea } from "../ui/scroll-area";
 
-export default function AddTracksToPlaylistDialog() {
+export default function AddTracksDialog() {
   const [selectedPlaylists, setSelectedPlaylists] = useState<Set<string>>(
     new Set()
   );
@@ -40,9 +40,7 @@ export default function AddTracksToPlaylistDialog() {
     onSuccess: async () => {
       await Promise.all(
         [...selectedPlaylists].map((playlistId) =>
-          queryClient.invalidateQueries({
-            queryKey: query.playlists.byId(playlistId).queryKey,
-          })
+          queryClient.prefetchQuery(query.playlists.byId(playlistId))
         )
       );
       clearStagedTracks();
