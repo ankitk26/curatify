@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { formatMs } from "~/lib/format-ms";
-import { cn } from "~/lib/utils";
 import { useTrackStore } from "~/store/track-store";
 import { Track } from "~/types";
 import TracksTableTitleColumn from "./tracks-table-title-column";
@@ -33,10 +32,7 @@ export default function TracksTableRow({
 
   return (
     <div
-      className={cn(
-        "grid py-2 px-4 rounded-lg grid-cols-12 cursor-pointer",
-        isCurrentRowHovered || stagedTracks.has(track.id) ? "bg-input/30" : ""
-      )}
+      className="grid py-2 px-4 rounded-lg grid-cols-12 cursor-pointer hover:bg-input/30"
       key={track.id + index + 1}
       onMouseEnter={() => setHoveredTrackId(track.id)}
       onMouseLeave={() => setHoveredTrackId(null)}
