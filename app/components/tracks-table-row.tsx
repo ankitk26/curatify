@@ -40,6 +40,13 @@ export default function TracksTableRow({
       key={track.id + index + 1}
       onMouseEnter={() => setHoveredTrackId(track.id)}
       onMouseLeave={() => setHoveredTrackId(null)}
+      onClick={() => {
+        if (stagedTracks.has(track.id)) {
+          removeTrackFromStage(track.id);
+        } else {
+          addTrackToStage(track.id);
+        }
+      }}
     >
       {isCurrentRowHovered || stagedTracks.has(track.id) ? (
         <div className="col-span-1 flex items-center justify-center w-fit">

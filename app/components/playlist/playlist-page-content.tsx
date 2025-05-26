@@ -1,7 +1,9 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "@tanstack/react-router";
 import { DotIcon, MusicIcon } from "lucide-react";
+import { cn } from "~/lib/utils";
 import { query } from "~/queries";
+import { useTrackStore } from "~/store/track-store";
 import PlaylistDescription from "../playlist-description";
 import TracksTable from "../tracks-table";
 import PlaylistActionButtons from "./playlist-action-buttons";
@@ -11,6 +13,7 @@ export default function PlaylistPageContent() {
     from: "/_protected/playlists/$playlistId",
   });
   const { data: playlist } = useSuspenseQuery(query.playlists.byId(playlistId));
+  const stagedTracksCount = useTrackStore((store) => store.stagedTracks.size);
 
   return (
     <div className="space-y-8">
@@ -62,7 +65,17 @@ export default function PlaylistPageContent() {
         )}
       </div>
 
-      <PlaylistActionButtons />
+      <div className="space-y-2">
+        <PlaylistActionButtons />
+        <p
+          className={cn(
+            "text-sm text-muted-foreground",
+            stagedTracksCount > 0 ? "block" : "invisible"
+          )}
+        >
+          {stagedTracksCount} tracks selected
+        </p>
+      </div>
 
       <div className="mt-8">
         {playlist?.tracks && (

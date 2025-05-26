@@ -28,9 +28,10 @@ export default function TracksTableHeader({
         <div
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          className="col-span-1"
         >
-          {!isStageEmpty || isHovered ? (
-            <div className="col-span-1 flex items-center font-semibold tracking-wider text-left uppercase">
+          <div className="flex items-center font-semibold tracking-wider text-left uppercase h-full min-h-[24px]">
+            {!isStageEmpty || isHovered ? (
               <Checkbox
                 id={playlistId}
                 onCheckedChange={(checked) => {
@@ -55,17 +56,15 @@ export default function TracksTableHeader({
                   }
                 }}
               />
-            </div>
-          ) : (
-            <div className="col-span-1 font-semibold tracking-wider text-left uppercase">
-              #
-            </div>
-          )}
+            ) : (
+              <span>#</span>
+            )}
+          </div>
         </div>
 
         <div
           className={cn(
-            "text-sm font-semibold text-left",
+            "text-sm flex items-center font-semibold text-left",
             showAlbum ? "col-span-6" : "col-span-10"
           )}
         >
@@ -73,12 +72,12 @@ export default function TracksTableHeader({
         </div>
 
         {showAlbum && (
-          <div className="col-span-4 text-sm font-semibold text-left">
+          <div className="col-span-4 text-sm flex items-center font-semibold text-left">
             Album
           </div>
         )}
 
-        <div className="col-span-1 font-semibold text-left">
+        <div className="col-span-1 flex items-center font-semibold text-left">
           <Clock3Icon size={16} />
         </div>
       </header>
