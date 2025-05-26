@@ -1,9 +1,10 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "@tanstack/react-router";
-import { MusicIcon, DotIcon } from "lucide-react";
+import { DotIcon, MusicIcon } from "lucide-react";
 import { query } from "~/queries";
 import PlaylistDescription from "../playlist-description";
 import TracksTable from "../tracks-table";
+import PlaylistActionButtons from "./playlist-action-buttons";
 
 export default function PlaylistPageContent() {
   const { playlistId } = useParams({
@@ -12,7 +13,7 @@ export default function PlaylistPageContent() {
   const { data: playlist } = useSuspenseQuery(query.playlists.byId(playlistId));
 
   return (
-    <>
+    <div className="space-y-8">
       <div className="flex items-end gap-6">
         {playlist && (
           <>
@@ -64,6 +65,8 @@ export default function PlaylistPageContent() {
         )}
       </div>
 
+      <PlaylistActionButtons />
+
       <div className="mt-8">
         {playlist?.tracks && (
           <TracksTable
@@ -75,6 +78,6 @@ export default function PlaylistPageContent() {
           />
         )}
       </div>
-    </>
+    </div>
   );
 }

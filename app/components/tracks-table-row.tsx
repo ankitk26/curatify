@@ -1,7 +1,11 @@
+import { Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { formatMs } from "~/lib/format-ms";
+import { cn } from "~/lib/utils";
+import { useTrackStore } from "~/store/track-store";
 import { Track } from "~/types";
 import TracksTableTitleColumn from "./tracks-table-title-column";
-import { Link } from "@tanstack/react-router";
+import { Checkbox } from "./ui/checkbox";
 
 type Props = {
   index: number;
@@ -18,14 +22,44 @@ export default function TracksTableRow({
   showCover,
   showSubtitle,
 }: Props) {
+  const [hoveredTrackId, setHoveredTrackId] = useState<string | null>(null);
+  const isCurrentRowHovered = track.id === hoveredTrackId;
+
+  const stagedTracks = useTrackStore((store) => store.stagedTracks);
+  const addTrackToStage = useTrackStore((store) => store.addTrackToStage);
+  const removeTrackFromStage = useTrackStore(
+    (store) => store.removeTrackFromStage
+  );
+
   return (
     <div
-      className="grid py-2 px-4 rounded-lg grid-cols-12"
+      className={cn(
+        "grid py-2 px-4 rounded-lg grid-cols-12 cursor-pointer",
+        isCurrentRowHovered || stagedTracks.has(track.id) ? "bg-input/30" : ""
+      )}
       key={track.id + index + 1}
+      onMouseEnter={() => setHoveredTrackId(track.id)}
+      onMouseLeave={() => setHoveredTrackId(null)}
     >
-      <span className="flex items-center col-span-1 text-sm text-muted-foreground">
-        {index + 1}
-      </span>
+      {isCurrentRowHovered || stagedTracks.has(track.id) ? (
+        <div className="col-span-1 flex items-center justify-center w-fit">
+          <Checkbox
+            id={track.id}
+            checked={stagedTracks.has(track.id)}
+            onCheckedChange={(checked) => {
+              if (checked) {
+                addTrackToStage(track.id);
+              } else {
+                removeTrackFromStage(track.id);
+              }
+            }}
+          />
+        </div>
+      ) : (
+        <span className="flex items-center col-span-1 text-sm text-muted-foreground">
+          {index + 1}
+        </span>
+      )}
 
       <TracksTableTitleColumn
         track={track}

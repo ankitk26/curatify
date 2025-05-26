@@ -21,7 +21,7 @@ export default function TracksTable({
     <div>
       {showHeader && <TracksTableHeader showAlbum={showAlbum} />}
 
-      <div className="w-full col-span-12">
+      <div className="w-full col-span-12 mt-2 space-y-2">
         {tracks
           ?.filter((track) => track.name.trim().length > 0)
           .map((track, index) => (
