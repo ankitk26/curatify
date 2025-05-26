@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
 import { formatMs } from "~/lib/format-ms";
+import { cn } from "~/lib/utils";
 import { useTrackStore } from "~/store/track-store";
 import { Track } from "~/types";
 import TracksTableTitleColumn from "./tracks-table-title-column";
@@ -21,34 +21,36 @@ export default function TracksTableRow({
   showCover,
   showSubtitle,
 }: Props) {
-  const [hoveredTrackId, setHoveredTrackId] = useState<string | null>(null);
-  const isCurrentRowHovered = track.id === hoveredTrackId;
-
   const stagedTracks = useTrackStore((store) => store.stagedTracks);
   const addTrackToStage = useTrackStore((store) => store.addTrackToStage);
   const removeTrackFromStage = useTrackStore(
     (store) => store.removeTrackFromStage
   );
 
+  const isStaged = stagedTracks.has(track.id);
+
   return (
     <div
-      className="grid py-2 px-4 rounded-lg grid-cols-12 cursor-pointer hover:bg-input/30"
+      className="group grid py-2 px-4 rounded-lg grid-cols-12 cursor-pointer hover:bg-input/30"
       key={track.id + index + 1}
-      onMouseEnter={() => setHoveredTrackId(track.id)}
-      onMouseLeave={() => setHoveredTrackId(null)}
       onClick={() => {
-        if (stagedTracks.has(track.id)) {
+        if (isStaged) {
           removeTrackFromStage(track.id);
         } else {
           addTrackToStage(track.id);
         }
       }}
     >
-      {isCurrentRowHovered || stagedTracks.has(track.id) ? (
-        <div className="col-span-1 flex items-center justify-center w-fit">
+      <div className="col-span-1 flex items-center justify-center w-fit">
+        <div
+          className={cn(
+            "transition-all",
+            isStaged ? "block" : "hidden group-hover:block"
+          )}
+        >
           <Checkbox
             id={track.id}
-            checked={stagedTracks.has(track.id)}
+            checked={isStaged}
             onCheckedChange={(checked) => {
               if (checked) {
                 addTrackToStage(track.id);
@@ -58,11 +60,15 @@ export default function TracksTableRow({
             }}
           />
         </div>
-      ) : (
-        <span className="flex items-center col-span-1 text-sm text-muted-foreground">
+        <span
+          className={cn(
+            "text-sm text-muted-foreground",
+            isStaged ? "hidden" : "group-hover:hidden"
+          )}
+        >
           {index + 1}
         </span>
-      )}
+      </div>
 
       <TracksTableTitleColumn
         track={track}
@@ -83,7 +89,7 @@ export default function TracksTableRow({
         </div>
       )}
 
-      <small className="flex items-center col-span-1 text-sm font-medium text-muted-foreground ">
+      <small className="flex items-center col-span-1 text-sm font-medium text-muted-foreground">
         {formatMs(track.duration_ms)}
       </small>
     </div>
