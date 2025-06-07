@@ -1,7 +1,8 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, useParams } from "@tanstack/react-router";
-import { MusicIcon, DotIcon } from "lucide-react";
+import { DotIcon, MusicIcon } from "lucide-react";
 import { query } from "~/queries";
+import PlaylistControls from "../playlist-controls";
 import TracksTable from "../tracks-table";
 
 export default function AlbumPageContent() {
@@ -54,11 +55,17 @@ export default function AlbumPageContent() {
         )}
       </div>
 
-      <TracksTable
-        tracks={album ? album.tracks.items : []}
-        showHeader
-        showSubtitle
-      />
+      <div className="mt-8">
+        <PlaylistControls />
+      </div>
+
+      <div className="mt-2">
+        <TracksTable
+          tracks={album ? album.tracks.items : []}
+          showHeader
+          showSubtitle
+        />
+      </div>
     </>
   );
 }

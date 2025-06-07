@@ -17,9 +17,11 @@ import {
 import { Button } from "../ui/button";
 
 export default function DeletePlaylistDialog() {
-  const { playlistId } = useParams({
-    from: "/_protected/playlists/$playlistId",
-  });
+  const { playlistId } = useParams({ strict: false });
+  if (!playlistId) {
+    return null;
+  }
+
   const navigate = useNavigate();
 
   const deletePlaylistMutation = useMutation({

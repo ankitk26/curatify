@@ -15,7 +15,7 @@ export const Route = createFileRoute("/_protected/albums/$albumId")({
 
 function RouteComponent() {
   return (
-    <div className="space-y-10">
+    <div>
       <Suspense
         fallback={
           <section className="space-y-20">

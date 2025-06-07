@@ -1,7 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "@tanstack/react-router";
 import { Clock3Icon } from "lucide-react";
-import { useState } from "react";
 import { cn } from "~/lib/utils";
 import { query } from "~/queries";
 import { useTrackStore } from "~/store/track-store";
@@ -14,7 +13,6 @@ export default function TracksTableHeader({
   showAlbum: boolean;
 }) {
   const { albumId, playlistId } = useParams({ strict: false });
-  const [isHovered, setIsHovered] = useState(false);
 
   const isStageEmpty = useTrackStore((store) => store.stagedTracks.size === 0);
   const clearStagedTracks = useTrackStore((store) => store.clearStagedTracks);
@@ -25,13 +23,9 @@ export default function TracksTableHeader({
   return (
     <>
       <header className="grid grid-cols-12 gap-2 p-4 pb-1 text-muted-foreground">
-        <div
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          className="col-span-1"
-        >
+        <div className="col-span-1">
           <div className="flex items-center font-semibold tracking-wider text-left uppercase h-full min-h-[24px]">
-            {!isStageEmpty || isHovered ? (
+            {!isStageEmpty ? (
               <Checkbox
                 id={playlistId}
                 onCheckedChange={(checked) => {

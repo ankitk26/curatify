@@ -18,9 +18,10 @@ import {
 import { Button } from "../ui/button";
 
 export default function RemoveTracksDialog() {
-  const { playlistId } = useParams({
-    from: "/_protected/playlists/$playlistId",
-  });
+  const { playlistId } = useParams({ strict: false });
+  if (!playlistId) {
+    return null;
+  }
 
   const isStageEmpty = useTrackStore((store) => store.stagedTracks.size === 0);
   const stagedTracks = useTrackStore((store) => store.stagedTracks);
